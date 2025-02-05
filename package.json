@@ -1,0 +1,50 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@clerk/clerk-js": "^5.45.2",
+    "@clerk/clerk-sdk-node": "^5.1.6",
+    "@clerk/nuxt": "^1.0.7",
+    "@nuxt/devtools": "^1.6.3",
+    "@nuxt/types": "^2.18.1",
+    "@nuxt/typescript-build": "^3.0.2",
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dialogflow": "^1.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "intl-tel-input": "^25.2.1",
+    "lucia": "^3.2.2",
+    "mongodb": "^6.12.0",
+    "mongoose": "^8.9.7",
+    "nuxt": "^3.13.2",
+    "openai": "^4.82.0",
+    "oslo": "^1.2.1",
+    "swiper": "^11.1.15",
+    "vue": "^3.5.13",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/mongoose": "^5.11.96",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "prisma": "^6.1.0",
+    "tailwindcss": "^3.4.14"
+  },
+  "version": "1.0.0",
+  "description": "Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.",
+  "main": "tailwind.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
