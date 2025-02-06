@@ -46,28 +46,24 @@
                     <form @submit.prevent="submitForm" class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
-                            <input type="text" id="name" v-model="form.name"
-                                class="mt-2 block w-full px-4 py-2 text-base border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400"
-                                placeholder="Enter your name" required />
+                            <input type="text" id="name" v-model="form.name" required
+                                class="mt-2 block w-full px-4 py-2 border rounded-lg" />
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Your Email</label>
-                            <input type="email" id="email" v-model="form.email"
-                                class="mt-2 block w-full px-4 py-2 text-base border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400"
-                                placeholder="Enter your email" required />
+                            <input type="email" id="email" v-model="form.email" required
+                                class="mt-2 block w-full px-4 py-2 border rounded-lg" />
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium text-gray-700">Your Message</label>
-                            <textarea id="message" v-model="form.message" rows="4"
-                                class="mt-2 block w-full px-4 py-2 text-base border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400"
-                                placeholder="Write your message here..." required></textarea>
+                            <textarea id="message" v-model="form.message" rows="4" required
+                                class="mt-2 block w-full px-4 py-2 border rounded-lg"></textarea>
                         </div>
-                        <div class="text-right">
-                            <button type="submit"
-                                class="inline-block w-full md:w-auto px-8 py-3 bg-blue-600 text-white font-semibold text-base rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                                Send Message
-                            </button>
-                        </div>
+                        <button type="submit"
+                            class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">
+                            Send Message
+                        </button>
+                        <p v-if="successMessage" class="text-green-600 mt-4">{{ successMessage }}</p>
                     </form>
                 </div>
             </div>
@@ -104,13 +100,28 @@ export default {
         };
     },
     methods: {
-        submitForm() {
-            // Handle form submission
-            console.log('Form submitted:', this.form);
-            alert('Your message has been sent successfully!');
-            this.form = { name: '', email: '', message: '' }; // Reset form
-        },
-    },
+        async submitForm() {
+            try {
+                const response = await fetch('https://formspree.io/f/xbldkdbv', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.form)
+                });
+
+                if (response.ok) {
+                    this.successMessage = 'Thanks for your feedback! We appreciate your time.';
+                    this.form = { name: '', email: '', message: '' }; // Reset form
+                } else {
+                    this.successMessage = 'Something went wrong. Please try again.';
+                }
+            } catch (error) {
+                this.successMessage = 'Error sending message!';
+            }
+        }
+    }
 };
 </script>
 

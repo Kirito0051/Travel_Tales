@@ -136,12 +136,11 @@
                 <input type="tel" v-model="phone" placeholder="Phone Number" class="p-4 border rounded w-full" required
                     pattern="\d*" />
             </div>
-            <!-- <div class="flex justify-center">
+            <div class="flex justify-center">
                 <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white px-6 py-3 rounded w-48">
                     Complete Booking
                 </button>
-            </div> -->
-            <button type="submit">Complete Booking</button>
+            </div>
         </form>
 
         <!-- <form @submit.prevent="submitBooking">
@@ -151,10 +150,10 @@
             <button type="submit">Complete Booking</button>
         </form> -->
 
-        <div v-if="bookingConfirmed">
-            <p>Your booking was successful! A confirmation email will be sent shortly.</p>
+        <div v-if="bookingConfirmed" class="bg-white text-black border-2  p-6 rounded-lg shadow-lg text-center">
+            <p class="text-lg font-semibold">Your booking was successful!</p>
+            <p class="text-gray-600 mt-2">A confirmation email will be sent shortly.</p>
         </div>
-
     </section>
 
 
