@@ -2,7 +2,7 @@
     <section class="container mx-auto py-4">
         <!-- Attention-Grabbing Image -->
         <div class="relative mb-8 h-[30rem]">
-            <img src="/public/images/plane_bg.jpg" alt="Scenic view from a plane during flight"
+            <img src="/images/plane_bg.jpg" alt="Scenic view from a plane during flight"
                 class="w-full h-full object-cover rounded-3xl" />
         </div>
 
@@ -14,14 +14,13 @@
         <form @submit.prevent="searchFlights" class="bg-gray-100 p-10 rounded shadow-md space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input type="text" v-model="departureCity" placeholder="Departure City" class="p-4 border rounded"
-                    required />
+                    required autofocus />
                 <input type="text" v-model="destinationCity" placeholder="Destination City" class="p-4 border rounded"
                     required />
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Class Selection -->
                 <select v-model="selectedClass" class="p-4 border rounded" required>
-                    <option value="" disabled selected>Select Class</option>
+                    <option value="" disabled>Select Class</option>
                     <option value="economy">Economy</option>
                     <option value="business">Business</option>
                     <option value="first class">First Class</option>
@@ -54,15 +53,13 @@
                     </div>
                     <div class="py-2 px-4 flex justify-end">
                         <nuxt-link :to="'/booking'" @click="selectFlight(flight)"
-                            class="px-6 py-2 bg-[#64748b] text-white font-bold text-center rounded hover:bg-blue-300 transition duration-300">
+                            class="px-6 py-2 bg-blue-600 text-white font-bold text-center rounded hover:bg-blue-800 transition duration-300">
                             Book Now
                         </nuxt-link>
                     </div>
                 </div>
             </div>
         </div>
-
-
 
         <!-- No Results Found Message -->
         <div v-else-if="searchTriggered && !loading" class="text-center mt-6 text-gray-500">
@@ -77,64 +74,45 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
 import { ref } from "vue";
 import { useFlight } from '~/composables/useFlight';
+import { useFetch, useRuntimeConfig } from "#app";
+import { useRouter } from "vue-router";
 
 definePageMeta({
     layout: 'custom'
 });
 
+const router = useRouter(); // Initialize Vue Router
+
+// Get API URL from Nuxt runtime config
+const config = useRuntimeConfig();
+const apiUrl = config.public.apiBase || "http://localhost:3000";
+
 // State variables
 const departureCity = ref("");
 const destinationCity = ref("");
-const selectedClass = ref(""); // Selected class: economy, business, firstClass
+const selectedClass = ref("");
 const passengers = ref(1);
-const flights = ref([]);
-const loading = ref(false);
 const searchTriggered = ref(false);
 
-// Shared State for Selected Flight
+// Shared state for selected flight
 const selectedFlight = useFlight();
 
-// Function to fetch flights
-const searchFlights = async () => {
-    searchTriggered.value = true;
-    loading.value = true;
-    flights.value = []; // Clear previous results
-
-    try {
-        const apiUrl = "http://localhost:3000/api/flights";
-
-        // Type-safe parameter object
-        const params: { departure: string; arrival: string; passengers: number; class?: string } = {
-            departure: departureCity.value,
-            arrival: destinationCity.value,
-            passengers: passengers.value
-        };
-
-        // Add the class parameter if it's selected
-        if (selectedClass.value) {
-            console.log("Class selected:", selectedClass.value); // Log the selected class for debugging
-            params.class = selectedClass.value;
-        }
-
-        console.log("Sending request with params:", params); // Log the parameters for debugging
-
-        const response = await axios.get(apiUrl, { params });
-
-        console.log("API Response:", response.data); // Log the response to see what's returned
-        flights.value = response.data; // Assign the response data to flights
-    } catch (error) {
-        console.error("Error fetching flights:", error); // Log any errors
-        flights.value = [];
-    } finally {
-        loading.value = false;
+// Fetch flights dynamically
+const { data: flights, pending: loading } = useFetch(`${apiUrl}/api/flights`, {
+    query: {
+        departure: departureCity,
+        arrival: destinationCity,
+        passengers,
+        class: selectedClass
     }
+});
+
+const selectFlight = (flight: any) => {
+    selectedFlight.value = flight; // Store in composable
+    localStorage.setItem("selectedFlight", JSON.stringify(flight)); // Store in localStorage
+    router.push("/booking"); // Redirect to booking page 
 };
 
-// Function to select a flight
-const selectFlight = (flight: any) => {
-    selectedFlight.value = flight; // Save selected flight data to shared state
-};
 </script>

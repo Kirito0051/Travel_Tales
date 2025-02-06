@@ -170,6 +170,15 @@ import axios from 'axios';
 const selectedFlight = useFlight();
 const route = useRoute();
 
+// Keep only ONE declaration for `flightDetails`
+const flightDetails = computed(() => selectedFlight.value || {
+    airline: "",
+    flightNumber: "",
+    origin: "",
+    price: 0,
+    class: ""
+});
+
 const name = ref("");
 const email = ref("");
 const phone = ref("");
@@ -179,23 +188,16 @@ const hotel = ref(null);
 
 const isMenuOpen = ref(false);
 
-const flightDetails = computed(() => selectedFlight.value || {
-    airline: "",
-    flightNumber: "",
-    origin: "",
-    destination: "",
-    price: 0,
-    class: ""
-});
-
 const isCarBooking = computed(() => route.query.type === 'car');
 const car = computed(() => {
     if (!isCarBooking.value) return storedCar.value;
     return {
         id: Number(route.query.id),
         name: route.query.name,
-        price: Number(route.query.price),
-        image: decodeURIComponent(route.query.image || "")
+        make: route.query.make,
+        model: route.query.model,
+        rental_price_per_day: route.query.rental_price_per_day,
+        img: route.query.img
     };
 });
 
@@ -208,34 +210,75 @@ const submitBooking = async () => {
     const bookingData = {
         name: name.value,
         email: email.value,
-        destination: flightDetails.value.destination, // Ensure this field exists
-        date: flightDetails.value.date, // Ensure this field exists
+        phone: phone.value,
+        flight: selectedFlight.value ? {
+            airline: selectedFlight.value.airline,
+            flightNumber: selectedFlight.value.flightNumber,
+            origin: selectedFlight.value.origin,
+            destination: selectedFlight.value.destination,
+            price: selectedFlight.value.price,
+            class: selectedFlight.value.class
+        } : null,
+        car: car.value || null,
+        hotel: hotel.value || null
     };
 
+    console.log(" Submitting Booking Data:", bookingData);
+
     try {
-        const response = await axios.post("http://localhost:5000/api/bookings", bookingData);
+        const response = await axios.post(
+            "http://localhost:5000/api/bookings",
+            bookingData,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        console.log(" Server Response:", response.data);
+
         if (response.data.message) {
             bookingConfirmed.value = true;
-            name.value = "";
-            email.value = "";
-            phone.value = "";
+            resetForm();
+            alert("Booking successful!");
         }
     } catch (error) {
-        console.error("Error during booking:", error);
+        console.error("API Error:", error.response?.data || error);
         alert("Booking failed. Please try again.");
     }
 };
 
 
 
+const resetForm = () => {
+    name.value = "";
+    email.value = "";
+    phone.value = "";
+    selectedFlight.value = null;
+};
 
 onMounted(() => {
-    const savedCar = localStorage.getItem("selectedCar");
-    if (savedCar) storedCar.value = JSON.parse(savedCar);
+    const savedFlight = localStorage.getItem("selectedFlight");
+    if (savedFlight) {
+        selectedFlight.value = JSON.parse(savedFlight);
+        console.log("Loaded Flight from LocalStorage:", selectedFlight.value);
+    }
 
-    const storedHotel = localStorage.getItem("selectedHotel");
-    if (storedHotel) hotel.value = JSON.parse(storedHotel);
+    const savedCar = localStorage.getItem("selectedCar");
+    if (savedCar) {
+        storedCar.value = JSON.parse(savedCar);
+        console.log("Loaded Car from LocalStorage:", storedCar.value);
+    }
+
+    const savedHotel = localStorage.getItem("selectedHotel");
+    if (savedHotel) {
+        hotel.value = JSON.parse(savedHotel);
+        console.log("Loaded Hotel from LocalStorage:", hotel.value);
+    }
 });
+
 </script>
+
 
 <style scoped></style>
