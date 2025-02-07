@@ -77,7 +77,7 @@
         <div :class="{ 'min-h-screen': carData.length > 0, 'h-auto': carData.length === 0 }"
             class="bg-gradient-to-br from-neonBlue to-brightPink text-black font-futuristic p-6">
             <!-- Search Section -->
-
+            <h2 class="text-4xl font-sriracha text-center mb-8 text-black">Find Your Perfect Ride</h2>
             <div
                 class="bg-white flex m-10 px-6 py-4 border border-gray-300 focus-within:border-black overflow-hidden w-full max-w-3xl mx-auto font-[sans-serif] rounded-lg hover:shadow-lg focus-within:shadow-xl transition-shadow duration-200">
                 <button @click="fetchCarData" class="mr-4 focus:outline-none">
@@ -94,7 +94,7 @@
 
 
             <!-- Display car data -->
-            <div v-if="carData.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div v-if="carData.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 m-10">
                 <div v-for="car in carData" :key="car.model"
                     class="relative p-4 rounded-lg bg-white hover:scale-105 transition-all duration-300 hover:h-[auto]">
                     <!-- Car Image -->

@@ -94,11 +94,12 @@
                 </div>
             </div>
         </div>
-        <div class="min-h-screen p-10 bg-gray-100 flex space-x-8 ml-28 items-start space-y-0 mt-10">
+        <div class="min-h-screen p-10 bg-gray-100 flex space-x-8 ml-20  mr-10 items-start space-y-0 mt-10">
             <!-- Car Booking Details -->
             <div v-if="car"
-                class="max-w-md bg-white shadow-lg rounded-lg overflow-hidden relative group transition-transform transform scale-95 hover:scale-100 duration-300 w-1/2 max-h-80">
-                <img :src="car.img" alt="Car Image" class="w-full h-48 object-cover rounded-md mb-4" />
+                class="max-w-md bg-white shadow-lg rounded-lg overflow-hidden relative group transition-transform transform scale-95 hover:scale-100 duration-300 w-1/2 max-h-100">
+                <img :src="car.img" alt="Car Image"
+                    class="w-full h-48 object-cover rounded-md mb-4 transition-all duration-300 group-hover:h-56" />
                 <div class="p-6 relative z-10">
                     <p class="text-sm text-gray-600"><strong>Make:</strong> {{ car.make }}</p>
                     <p class="text-sm text-gray-600"><strong>Model:</strong> {{ car.model }}</p>
@@ -112,9 +113,10 @@
 
             <!-- Hotel Booking Details -->
             <div v-if="hotel"
-                class="p-6 max-w-md mx-auto border rounded-lg shadow-lg w-1/2 max-h-80 group transition-transform transform scale-95 hover:scale-100 duration-300">
+                class="p-6 max-w-md mx-auto border rounded-lg shadow-lg w-1/2 max-h-100 group transition-transform transform scale-95 hover:scale-100 duration-300">
                 <h2 class="text-2xl font-bold mb-4">{{ hotel.name }}</h2>
-                <img :src="hotel.img" alt="Hotel Image" class="w-full h-32 object-cover rounded-lg mb-4" />
+                <img :src="hotel.img" alt="Hotel Image"
+                    class="w-full h-32 object-cover rounded-lg mb-4 transition-all duration-300 group-hover:h-40" />
                 <p class="text-lg"><strong>City:</strong> {{ hotel.city }}</p>
                 <p class="text-lg"><strong>Price:</strong> {{ hotel.price }}</p>
                 <p class="text-lg"><strong>Rating:</strong> {{ hotel.rating }} stars</p>
@@ -143,14 +145,7 @@
             </div>
         </form>
 
-        <!-- <form @submit.prevent="submitBooking">
-            <input type="text" v-model="name" placeholder="Full Name" required />
-            <input type="email" v-model="email" placeholder="Email Address" required />
-            <input type="tel" v-model="phone" placeholder="Phone Number" required />
-            <button type="submit">Complete Booking</button>
-        </form> -->
-
-        <div v-if="bookingConfirmed" class="bg-white text-black border-2  p-6 rounded-lg shadow-lg text-center">
+        <div v-if="bookingConfirmed" class="bg-white text-black border-2 p-6 rounded-lg shadow-lg text-center">
             <p class="text-lg font-semibold">Your booking was successful!</p>
             <p class="text-gray-600 mt-2">A confirmation email will be sent shortly.</p>
         </div>

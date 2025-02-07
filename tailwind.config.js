@@ -14,6 +14,8 @@ module.exports = {
         eduAU: ["Edu AU VIC WA NT Pre", "sans-serif"],
         playwrite: ["Playwrite NG Modern", "sans-serif"],
         sourGummy: ["Sour Gummy", "sans-serif"],
+        lobster: ["Lobster", "cursive"],
+        sriracha: ["Sriracha", "cursive"],
       },
     },
   },

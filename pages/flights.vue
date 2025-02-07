@@ -38,7 +38,7 @@
         <!-- Flight Results -->
         <div v-if="flights.length > 0" class="mt-8">
             <h3 class="text-xl font-bold text-center mb-4 text-black">Available Flights</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 <div v-for="flight in flights" :key="flight._id"
                     class="border rounded p-6 shadow-lg bg-white hover:bg-blue-50 transition duration-300 flex flex-col justify-between">
                     <div>
@@ -48,8 +48,7 @@
                         <p class="text-gray-600">{{ flight.origin }} → {{ flight.destination }}</p>
                         <p class="font-bold text-sm text-green-600">Price: ${{ flight.price }}</p>
                         <p class="text-sm text-gray-500">Class: {{ flight.class }}</p>
-                        <p class="text-sm text-gray-500">Seats Available: {{ flight.availableSeats[selectedClass] ||
-                            'N/A' }}</p>
+                        <!-- <p class="text-sm text-gray-500">Seats Available: {{ flight.availableSeats[selectedClass]  }}</p> -->
                     </div>
                     <div class="py-2 px-4 flex justify-end">
                         <nuxt-link :to="'/booking'" @click="selectFlight(flight)"

@@ -63,11 +63,16 @@
 
         <div v-for="hotel in hotels" :key="hotel.id"
             class="mb-8 p-6 border border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <img :src="hotel.img" :alt="hotel.name" class="w-full h-48 object-cover rounded-lg mb-4" />
+            <div class="flex space-x-4 mb-4 group">
+                <img :src="hotel.img" :alt="hotel.name"
+                    class="w-1/2 h-48 object-cover rounded-lg transition-all duration-300 group-hover:h-96  " />
+                <img :src="hotel.img2" :alt="hotel.name"
+                    class="w-1/2 h-48 object-cover rounded-lg transition-all duration-300 group-hover:h-96" />
+            </div>
             <div class="space-y-2">
                 <h3 class="font-semibold text-xl text-gray-900">{{ hotel.name }}</h3>
                 <p class="text-gray-700">{{ hotel.city }}</p>
-                <p class="font-medium text-gray-800">{{ hotel.price }}</p>
+                <p class="font-medium text-gray-800">Rates: ${{ hotel.price }}</p>
                 <p class="text-gray-500">{{ hotel.rating }} stars</p>
             </div>
             <div class="flex justify-end mt-4">
@@ -76,8 +81,8 @@
                     Book Now
                 </button>
             </div>
-
         </div>
+
 
 
         <!-- No Hotels Found Message -->
