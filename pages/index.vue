@@ -12,24 +12,38 @@
                     </div>
 
                     <!-- Hamburger Button (Custom Icon) -->
-                    <button id="hamburger-btn" class="text-white text-3xl md:hidden focus:outline-none mr-4">
+                    <button id="hamburger-btn" @click="toggleSidebar"
+                        class="text-white text-3xl md:hidden focus:outline-none mr-4">
                         <img src="/public/images/hamburger.png" alt="Hamburger Menu" class="w-8 h-8" />
                     </button>
 
                     <!-- Navbar Links (Visible on larger screens) -->
                     <div class="hidden md:flex space-x-4 md:space-x-6 font-bob text-base md:text-2xl">
-                        <NuxtLink to="/flights"
-                            class="transition-all duration-300 ease-in-out hover:scale-105 hover:text-2xl text-[#4a4947]">
-                            Flights
-                        </NuxtLink>
-                        <NuxtLink to="/hotels"
-                            class="transition-all duration-300 ease-in-out hover:scale-105 hover:text-2xl text-[#4a4947]">
-                            Hotels
-                        </NuxtLink>
-                        <NuxtLink to="/car_rental"
-                            class="transition-all duration-300 ease-in-out hover:scale-105 hover:text-2xl text-[#4a4947]">
-                            Car Rentals
-                        </NuxtLink>
+                        <SignedIn>
+                            <NuxtLink to="/flights"
+                                class="transition-all duration-300 ease-in-out hover:scale-105 hover:text-2xl text-[#4a4947]">
+                                Flights
+                            </NuxtLink>
+                            <NuxtLink to="/hotels"
+                                class="transition-all duration-300 ease-in-out hover:scale-105 hover:text-2xl text-[#4a4947]">
+                                Hotels
+                            </NuxtLink>
+                            <NuxtLink to="/car_rental"
+                                class="transition-all duration-300 ease-in-out hover:scale-105 hover:text-2xl text-[#4a4947]">
+                                Car Rentals
+                            </NuxtLink>
+                        </SignedIn>
+                        <SignedOut>
+                            <a @click.prevent="showAuthAlert" class="text-[#4a4947] cursor-pointer hover:text-2xl">
+                                Flights
+                            </a>
+                            <a @click.prevent="showAuthAlert" class="text-[#4a4947] cursor-pointer hover:text-2xl">
+                                Hotels
+                            </a>
+                            <a @click.prevent="showAuthAlert" class="text-[#4a4947] cursor-pointer hover:text-2xl">
+                                Car Rentals
+                            </a>
+                        </SignedOut>
                         <NuxtLink to="/connect"
                             class="transition-all duration-300 ease-in-out hover:scale-105 hover:text-2xl text-[#4a4947]">
                             Connect
@@ -37,22 +51,42 @@
                     </div>
                 </div>
 
+                <!-- Sign-in Modal -->
+                <div v-if="isModalOpen"
+                    class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
+                    <div class="bg-white p-10 rounded-lg">
+                        <p class="text-xl font-bold mb-4">Sign in to continue</p>
+                        <SignInButton />
+                        <button @click="closeModal" class="mt-4 p-2 bg-red-500 text-white rounded">Close</button>
+                    </div>
+                </div>
+
                 <!-- Sidebar (Hidden by default) -->
-                <div id="sidebar"
-                    class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-30">
-                    <button id="close-btn" class="text-gray-600 text-2xl absolute top-4 right-4 focus:outline-none">
+                <div id="sidebar" :class="{ '-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen }"
+                    class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-30">
+
+                    <button id="close-btn" @click="closeSidebar"
+                        class="text-gray-600 text-2xl absolute top-4 right-4 focus:outline-none">
                         ✕
                     </button>
                     <div class="mt-16 space-y-6 px-6 font-bob text-xl">
-                        <NuxtLink to="/flights" class="block text-[#4a4947] hover:text-blue-600">Flights</NuxtLink>
-                        <NuxtLink to="/hotels" class="block text-[#4a4947] hover:text-blue-600">Hotels</NuxtLink>
-                        <NuxtLink to="/car_rental" class="block text-[#4a4947] hover:text-blue-600">Car Rentals
-                        </NuxtLink>
+                        <SignedIn>
+                            <NuxtLink to="/flights" class="block text-[#4a4947] hover:text-blue-600">Flights</NuxtLink>
+                            <NuxtLink to="/hotels" class="block text-[#4a4947] hover:text-blue-600">Hotels</NuxtLink>
+                            <NuxtLink to="/car_rental" class="block text-[#4a4947] hover:text-blue-600">Car Rentals
+                            </NuxtLink>
+                        </SignedIn>
+                        <SignedOut>
+                            <NuxtLink to="/" class="block text-gray-500 cursor-not-allowed">Flights</NuxtLink>
+                            <NuxtLink to="/" class="block text-gray-500 cursor-not-allowed">Hotels</NuxtLink>
+                            <NuxtLink to="/" class="block text-gray-500 cursor-not-allowed">Car Rentals</NuxtLink>
+                        </SignedOut>
                         <NuxtLink to="/connect" class="block text-[#4a4947] hover:text-blue-600">Connect</NuxtLink>
-                        <SignInButton class="bg-white text-[#4a4947] rounded-lg z-50" />
+                        <!-- <SignInButton class="bg-white text-[#4a4947] rounded-lg z-50" /> -->
                     </div>
                 </div>
             </nav>
+
 
             <!-- Hero Content (Title, Subtitle, Button) -->
             <div class="absolute top-1/3 left-5 md:left-10 w-full px-4 md:px-10 text-left">
@@ -127,10 +161,18 @@
             <!-- Modal Content -->
             <div v-if="isModalOpen"
                 class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
-                <div class="bg-white p-10 rounded-lg">
-                    <SignInButton /> <!-- Add margin-bottom to SignInButton -->
-                    <div class="space-y-4"></div>
-                    <button @click="closeModal" class="mt-4 p-2 bg-red-500 text-white rounded">Close</button>
+                <div class="bg-white p-10 rounded-lg shadow-xl">
+                    <div class="text-center">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Sign in to continue</h3>
+                        <!-- Add a wrapper div with specific styling for SignInButton -->
+                        <div class="signin-button-wrapper">
+                            <SignInButton :class="{ 'bg-transparent': true }" />
+                        </div>
+                        <button @click="closeModal"
+                            class="mt-6 px-6 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -245,7 +287,23 @@
             </div>
 
         </div>
-
+        <!-- Add this before the closing </div> in your template -->
+        <!-- Auth Required Popup -->
+        <div v-if="showAuthPopup" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
+            <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
+                <div class="text-center">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Authentication Required</h3>
+                    <p class="text-gray-600 mb-6">Please sign in to access this feature.</p>
+                    <div class="space-y-4">
+                        <SignInButton />
+                        <button @click="closeAuthPopup"
+                            class="w-full px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer class="bg-gray-800 text-white py-4">
             <div class="container mx-auto text-center">
                 <p>&copy; 2024 Travel Explorer. All rights reserved.</p>
@@ -256,52 +314,60 @@
                 </div>
             </div>
         </footer>
+        <Chatbot />
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            isModalOpen: false
-        };
-    },
-    methods: {
-        openModal() {
-            this.isModalOpen = true;
-        },
-        closeModal() {
-            this.isModalOpen = false;
-        },
-        redirectToLogin() {
-            this.$router.push('/login');
-        },
-    },
-    mounted() {
-        const hamburgerBtn = document.getElementById("hamburger-btn");
-        const sidebar = document.getElementById("sidebar");
-        const closeBtn = document.getElementById("close-btn");
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import Chatbot from '~/components/Chatbot.vue'
 
-        // Open sidebar
-        hamburgerBtn.addEventListener("click", () => {
-            sidebar.style.transform = "translateX(0)";
-        });
+const isModalOpen = ref(false)
+const isSidebarOpen = ref(false)
+const showAuthPopup = ref(false)
 
-        // Close sidebar when the close button is clicked
-        closeBtn.addEventListener("click", () => {
-            sidebar.style.transform = "translateX(-100%)";
-        });
 
-        // Close sidebar if click is outside of it
-        document.addEventListener("click", (e) => {
-            if (!hamburgerBtn.contains(e.target) && !sidebar.contains(e.target)) {
-                sidebar.style.transform = "translateX(-100%)";
-            }
-        });
+const showAuthAlert = () => {
+    showAuthPopup.value = true
+}
+
+const closeAuthPopup = () => {
+    showAuthPopup.value = false
+}
+
+const openModal = () => {
+    isModalOpen.value = true
+}
+
+const closeModal = () => {
+    isModalOpen.value = false
+}
+
+const toggleSidebar = () => {
+    isSidebarOpen.value = !isSidebarOpen.value
+}
+
+const closeSidebar = () => {
+    isSidebarOpen.value = false
+}
+
+const handleOutsideClick = (event) => {
+    const sidebar = document.getElementById("sidebar")
+    const hamburgerBtn = document.getElementById("hamburger-btn")
+
+    if (sidebar && hamburgerBtn && !sidebar.contains(event.target) && !hamburgerBtn.contains(event.target)) {
+        closeSidebar()
     }
-};
-</script>
+}
 
+onMounted(() => {
+    document.addEventListener("click", handleOutsideClick)
+})
+
+onBeforeUnmount(() => {
+    document.removeEventListener("click", handleOutsideClick)
+})
+</script>
 
 
 

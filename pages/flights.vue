@@ -79,7 +79,8 @@ import { useFetch, useRuntimeConfig } from "#app";
 import { useRouter } from "vue-router";
 
 definePageMeta({
-    layout: 'custom'
+    layout: 'custom',
+    middleware: 'auth'
 });
 
 const router = useRouter(); // Initialize Vue Router
