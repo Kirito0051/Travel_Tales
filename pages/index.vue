@@ -52,14 +52,14 @@
                 </div>
 
                 <!-- Sign-in Modal -->
-                <div v-if="isModalOpen"
+                <!-- <div v-if="isModalOpen"
                     class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
                     <div class="bg-white p-10 rounded-lg">
-                        <p class="text-xl font-bold mb-4">Sign in to continue</p>
+                        <p class="text-xl font-bold mb-4">Join Our Travel Community!</p>
                         <SignInButton />
                         <button @click="closeModal" class="mt-4 p-2 bg-red-500 text-white rounded">Close</button>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Sidebar (Hidden by default) -->
                 <div id="sidebar" :class="{ '-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen }"
@@ -77,9 +77,11 @@
                             </NuxtLink>
                         </SignedIn>
                         <SignedOut>
-                            <NuxtLink to="/" class="block text-gray-500 cursor-not-allowed">Flights</NuxtLink>
-                            <NuxtLink to="/" class="block text-gray-500 cursor-not-allowed">Hotels</NuxtLink>
-                            <NuxtLink to="/" class="block text-gray-500 cursor-not-allowed">Car Rentals</NuxtLink>
+                            <NuxtLink @click.prevent="showAuthAlert" class="block text-gray-500 ">Flights</NuxtLink>
+                            <NuxtLink @click.prevent="showAuthAlert" class="block text-gray-500 cursor-not-allowed">
+                                Hotels</NuxtLink>
+                            <NuxtLink @click.prevent="showAuthAlert" class="block text-gray-500 cursor-not-allowed">Car
+                                Rentals</NuxtLink>
                         </SignedOut>
                         <NuxtLink to="/connect" class="block text-[#4a4947] hover:text-blue-600">Connect</NuxtLink>
                         <!-- <SignInButton class="bg-white text-[#4a4947] rounded-lg z-50" /> -->
@@ -163,10 +165,10 @@
                 class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
                 <div class="bg-white p-10 rounded-lg shadow-xl">
                     <div class="text-center">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Sign in to continue</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Join Our Travel Community!</h3>
                         <!-- Add a wrapper div with specific styling for SignInButton -->
                         <div class="signin-button-wrapper">
-                            <SignInButton :class="{ 'bg-transparent': true }" />
+                            <SignInButton class="bg-transparent" />
                         </div>
                         <button @click="closeModal"
                             class="mt-6 px-6 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
@@ -224,10 +226,18 @@
                     Discover unparalleled comfort and elegance with our handpicked selection of luxury hotels worldwide.
                     Whether for business or leisure, we have the perfect stay tailored for you.
                 </p>
-                <NuxtLink to="/hotels"
-                    class="inline-block bg-blue-600 px-5 py-2 text-sm text-white rounded-full hover:bg-blue-700 transition transform duration-300 hover:scale-105">
-                    Explore Hotels
-                </NuxtLink>
+                <SignedIn>
+                    <NuxtLink to="/hotels"
+                        class="inline-block bg-blue-600 px-5 py-2 text-sm text-white rounded-full hover:bg-blue-700 transition transform duration-300 hover:scale-105">
+                        Explore Hotels
+                    </NuxtLink>
+                </SignedIn>
+                <SignedOut>
+                    <button @click="showAuthAlert"
+                        class="inline-block bg-blue-600 px-5 py-2 text-sm text-white rounded-full hover:bg-blue-700 transition transform duration-300 hover:scale-105">
+                        Explore Hotels
+                    </button>
+                </SignedOut>
                 <img src="/public/images/random-star.png" alt="Paper Plane"
                     class="absolute top-[-100px] right-10 w-[20vw] md:w-[70px] h-auto p-2 bg-transparent custom-hide">
             </div>
@@ -293,9 +303,9 @@
             <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
                 <div class="text-center">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">Authentication Required</h3>
-                    <p class="text-gray-600 mb-6">Please sign in to access this feature.</p>
+                    <p class="text-gray-600 mb-6">Please sign in to access.</p>
                     <div class="space-y-4">
-                        <SignInButton />
+                        <!-- <SignInButton /> -->
                         <button @click="closeAuthPopup"
                             class="w-full px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
                             Close

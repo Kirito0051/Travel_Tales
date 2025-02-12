@@ -93,41 +93,74 @@
             </div>
 
 
-            <!-- Display car data -->
-            <div v-if="carData.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 m-10">
+            <div v-if="carData.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-10">
                 <div v-for="car in carData" :key="car.model"
-                    class="relative p-4 rounded-lg bg-white hover:scale-105 transition-all duration-300 hover:h-[auto]">
+                    class="relative p-5 rounded-xl bg-white shadow-lg hover:scale-105 transition-all duration-300 hover:shadow-2xl overflow-hidden">
+
+                    <!-- Brand & Model -->
+                    <h2 class="text-lg font-semibold text-gray-800">{{ car.make }}</h2>
+                    <p class="text-md text-gray-600">{{ car.model }}</p>
+
                     <!-- Car Image -->
-                    <img :src="car.img" alt="Car Image" class="w-full h-52 object-cover rounded-md mb-4" />
+                    <img :src="car.img" alt="Car Image"
+                        class="w-full h-56 object-cover rounded-md my-3 transition-transform duration-300 hover:scale-105" />
 
-                    <!-- Basic Details -->
-                    <p class="text-sm text-gray-600"><strong>Make:</strong> {{ car.make }}</p>
-                    <p class="text-sm text-gray-600"><strong>Model:</strong> {{ car.model }}</p>
-                    <p class="text-sm text-gray-600"><strong>Rental Price:</strong> {{ car.rental_price_per_day }}</p>
-
-                    <!-- Full Details (Initially Hidden) -->
-                    <div
-                        class="full-details absolute top-0 left-0 right-0 bottom-0 bg-white p-4 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
-                        <img :src="car.img" alt="Car Image" class="w-full h-52 object-cover rounded-md mb-4" />
-                        <p class="text-sm text-gray-600"><strong>Make:</strong> {{ car.make }}</p>
-                        <p class="text-sm text-gray-600"><strong>Model:</strong> {{ car.model }}</p>
-                        <p class="text-sm text-gray-600"><strong>Rental Price:</strong> {{ car.rental_price_per_day }}
-                        </p>
-                        <p class="text-sm text-gray-600"><strong>Year:</strong> {{ car.year }}</p>
-                        <p class="text-sm text-gray-600"><strong>Fuel Type:</strong> {{ car.fuel_type }}</p>
-                        <p class="text-sm text-gray-600"><strong>Drive:</strong> {{ car.drive }}</p>
-                        <p class="text-sm text-gray-600"><strong>Class:</strong> {{ car.class }}</p>
-                        <p class="text-sm text-gray-600"><strong>Availability:</strong> {{ car.availability }}</p>
-
-                        <div class="flex justify-end mt-4">
-                            <button @click="bookCar(car)"
-                                class="px-4 py-2 bg-[#64748b] text-white font-medium rounded-lg hover:bg-blue-300 transition duration-200">
-                                Book Now
-                            </button>
+                    <!-- Car Details with Icons -->
+                    <div class="flex items-center justify-between text-sm text-gray-700">
+                        <!-- Transmission -->
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+                            </svg>
+                            <span>{{ car.transmission }}</span>
                         </div>
+
+                        <!-- Drive Type -->
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-2">
+                                <img src="/public/images/wheels.png" alt="Seats Icon" class="w-5 h-5" />
+                            </div>
+                            <span>{{ car.drive }}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm text-gray-700 mt-2">
+                        <!-- Fuel Type -->
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16 3h3a1 1 0 011 1v14a2 2 0 01-2 2h-1"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-6 9 6"></path>
+                            </svg>
+                            <span>{{ car.fuel_type }}</span>
+                        </div>
+
+                        <!-- Seating Capacity (New Icon) -->
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-2">
+                                <img src="/public/images/seat.png" alt="Seats Icon" class="w-5 h-5" />
+                            </div>
+                            <span>{{ car.seat }} Seater</span>
+                        </div>
+                    </div>
+
+                    <!-- Price at the Bottom -->
+                    <div class="mt-4 text-lg font-bold text-green-600">
+                        ₹{{ car.rental_price_per_day }}/day
+                    </div>
+
+                    <!-- Book Now Button -->
+                    <div class="flex justify-end mt-4">
+                        <button @click="bookCar(car)"
+                            class="px-4 py-2 bg-[#64748b] text-white font-medium rounded-lg hover:bg-blue-300 transition duration-200">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
+
 
             <div v-else-if="showNoResults" class="text-center mt-6">
                 <p class="text-lg font-semibold">No cars available.</p>
@@ -150,6 +183,10 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+
+definePageMeta({
+    middleware: 'auth'
+});
 
 const points = ref([]);
 const isPlaying = ref(false);

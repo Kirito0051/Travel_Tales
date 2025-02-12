@@ -98,12 +98,14 @@
             <!-- Car Booking Details -->
             <div v-if="car"
                 class="max-w-md bg-white shadow-lg rounded-lg overflow-hidden relative group transition-transform transform scale-95 hover:scale-100 duration-300 w-1/2 max-h-100">
-                <img :src="car.img" alt="Car Image"
-                    class="w-full h-48 object-cover rounded-md mb-4 transition-all duration-300 group-hover:h-56" />
+                <!-- <img :src="car.img" alt="Car Image"
+                    class="w-full h-48 object-cover rounded-md mb-4 transition-all duration-300 group-hover:h-56" /> -->
                 <div class="p-6 relative z-10">
-                    <p class="text-sm text-gray-600"><strong>Make:</strong> {{ car.make }}</p>
-                    <p class="text-sm text-gray-600"><strong>Model:</strong> {{ car.model }}</p>
-                    <p class="text-sm text-gray-600"><strong>Rental Price:</strong> {{ car.rental_price_per_day }}</p>
+                    <p class="text-2xl font-bold mb-4"> {{ car.model }}</p>
+                    <img :src="car.img" alt="Car Image"
+                        class="w-full h-48 object-cover rounded-md mb-4 transition-all duration-300 group-hover:h-56" />
+                    <p class="text-lg"><strong>Rental Price:</strong> {{ car.rental_price_per_day }}</p>
+                    <p class="text-lg"><strong>Availability:</strong> {{ car.availability }}</p>
                 </div>
                 <div
                     class="absolute inset-0 bg-gray-100/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

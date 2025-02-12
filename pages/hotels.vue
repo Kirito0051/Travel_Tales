@@ -115,7 +115,8 @@ const error = ref<string | null>(null);
 // Define the custom layout for this page
 definePageMeta({
     layout: 'custom',
-})
+    middleware: 'auth'
+});
 
 const video = ref<HTMLVideoElement | null>(null)
 

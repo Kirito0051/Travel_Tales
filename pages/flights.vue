@@ -48,7 +48,7 @@
                         <p class="text-gray-600">{{ flight.origin }} → {{ flight.destination }}</p>
                         <p class="font-bold text-sm text-green-600">Price: ${{ flight.price }}</p>
                         <p class="text-sm text-gray-500">Class: {{ flight.class }}</p>
-                        <!-- <p class="text-sm text-gray-500">Seats Available: {{ flight.availableSeats[selectedClass]  }}</p> -->
+                        <p class="text-sm text-gray-500">Seats Available: {{ flight.availableSeats[selectedClass] }}</p>
                     </div>
                     <div class="py-2 px-4 flex justify-end">
                         <nuxt-link :to="'/booking'" @click="selectFlight(flight)"
