@@ -1,7 +1,7 @@
 <template>
 
     <nav class=" text-black">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center ">
             <!-- Navigation Links (Left) -->
             <ul class="hidden md:flex space-x-8 flex-1 justify-end">
                 <li>
@@ -69,7 +69,7 @@
 
     <section class="container mx-auto py-8">
         <!-- Flight Booking Details -->
-        <div class="bg-gray-100 p-10 rounded shadow-md flex flex-col items-center space-y-6 ml-10 mr-10">
+        <div class="bg-gray-100 p-10 rounded shadow-md flex flex-col items-center space-y-6 ml-20  mr-20">
             <div class="flex space-x-28">
                 <!-- Image Section -->
                 <div class="flex-shrink-0 w-1/3">
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <div class="min-h-screen p-10 bg-gray-100 flex space-x-8 ml-20  mr-10 items-start space-y-0 mt-10">
+        <div class="min-h-screen p-10 bg-gray-100 flex space-x-8 ml-28  mr-10 items-start space-y-0 mt-10">
             <!-- Car Booking Details -->
             <div v-if="car"
                 class="max-w-md bg-white shadow-lg rounded-lg overflow-hidden relative group transition-transform transform scale-95 hover:scale-100 duration-300 w-1/2 max-h-100">
@@ -103,7 +103,7 @@
                 <div class="p-6 relative z-10">
                     <p class="text-2xl font-bold mb-4"> {{ car.model }}</p>
                     <img :src="car.img" alt="Car Image"
-                        class="w-full h-48 object-cover rounded-md mb-4 transition-all duration-300 group-hover:h-56" />
+                        class="w-full h-40 object-cover rounded-md mb-4 transition-all duration-300 group-hover:h-56" />
                     <p class="text-lg"><strong>Rental Price:</strong> {{ car.rental_price_per_day }}</p>
                     <p class="text-lg"><strong>Availability:</strong> {{ car.availability }}</p>
                 </div>
@@ -118,7 +118,7 @@
                 class="p-6 max-w-md mx-auto border rounded-lg shadow-lg w-1/2 max-h-100 group transition-transform transform scale-95 hover:scale-100 duration-300">
                 <h2 class="text-2xl font-bold mb-4">{{ hotel.name }}</h2>
                 <img :src="hotel.img" alt="Hotel Image"
-                    class="w-full h-32 object-cover rounded-lg mb-4 transition-all duration-300 group-hover:h-40" />
+                    class="w-full h-32 object-cover rounded-lg mb-4 transition-all duration-300 group-hover:h-48 " />
                 <p class="text-lg"><strong>City:</strong> {{ hotel.city }}</p>
                 <p class="text-lg"><strong>Price:</strong> {{ hotel.price }}</p>
                 <p class="text-lg"><strong>Rating:</strong> {{ hotel.rating }} stars</p>

@@ -8,7 +8,7 @@
                 <div class="flex justify-between items-center">
                     <!-- Logo -->
                     <div id="logo" class="text-3xl font-sourGummy text-white ml-4 md:ml-10">
-                        <NuxtLink to="/" class="hover:text-blue-500">Travel_Tails</NuxtLink>
+                        <NuxtLink to="/" class="hover:text-blue-500">Travel_Tales</NuxtLink>
                     </div>
 
                     <!-- Hamburger Button (Custom Icon) -->

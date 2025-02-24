@@ -6,6 +6,13 @@ export default defineNuxtConfig({
   modules: ["@clerk/nuxt"],
   css: ["~/assets/css/main.css"],
 
+  runtimeConfig: {
+    NUXT_CLERK_SECRET_KEY: process.env.NUXT_CLERK_SECRET_KEY,
+    public: {
+      clerkPublishableKey: process.env.CLERK_PUBLISHABLE_KEY,
+    },
+  },
+
   postcss: {
     plugins: {
       tailwindcss: {},

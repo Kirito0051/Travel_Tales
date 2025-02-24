@@ -19,6 +19,7 @@
     "@nuxt/typescript-build": "^3.0.2",
     "axios": "^1.7.9",
     "body-parser": "^1.20.3",
+    "chart.js": "^3.9.1",
     "cors": "^2.8.5",
     "dialogflow": "^1.2.0",
     "dotenv": "^16.4.7",
@@ -31,8 +32,10 @@
     "nuxt": "^3.13.2",
     "openai": "^4.82.0",
     "oslo": "^1.2.1",
+    "recharts": "^2.15.1",
     "swiper": "^11.1.15",
     "vue": "^3.5.13",
+    "vue-chart-3": "^3.1.8",
     "vue-router": "latest"
   },
   "devDependencies": {

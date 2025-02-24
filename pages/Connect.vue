@@ -28,7 +28,7 @@
                             <span class="text-blue-500 mr-4">
                                 <i class="fas fa-envelope"></i>
                             </span>
-                            <p class="text-gray-700">contact@Travel_Tails.com</p>
+                            <p class="text-gray-700">contact@Travel_Tales.com</p>
                         </li>
                         <li class="flex items-center">
                             <span class="text-blue-500 mr-4">
