@@ -17,8 +17,7 @@
                 ref="chatContainer">
                 <div v-for="(message, index) in messages" :key="index"
                     :class="message.isUser ? 'text-right' : 'text-left'">
-                    <div :class="[
-                        message.isUser ? 'bg-gray-400 text-black ml-auto' : 'bg-gray-300 text-gray-800',
+                    <div :class="[message.isUser ? 'bg-gray-400 text-black ml-auto' : 'bg-gray-300 text-gray-800',
                         'inline-block p-4 rounded-lg mb-4 max-w-[90%] shadow-md'
                     ]">
                         <div v-if="!message.isUser" class="prose">
@@ -52,84 +51,67 @@
 
 <script setup>
 import { ref, watch, nextTick } from 'vue'
-import { GoogleGenerativeAI } from '@google/generative-ai'
 import { marked } from 'marked'
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI('AIzaSyAEZrAKeii139--_Kfp3NOgbj9suXdv234')
-const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // ✅ Use environment variable
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });// ✅ Use correct model name
 
-const isOpen = ref(false)
-const userInput = ref('')
-const messages = ref([])
-const chatContainer = ref(null)
-const isLoading = ref(false)
+const isOpen = ref(false);
+const userInput = ref('');
+const messages = ref([]);
+const chatContainer = ref(null);
+const isLoading = ref(false);
 
 function formatMessage(text) {
-    return marked(text, {
-        gfm: true,
-        breaks: true
-    })
+    return marked(text, { gfm: true, breaks: true });
 }
 
-
 function toggleChat() {
-    isOpen.value = !isOpen.value
+    isOpen.value = !isOpen.value;
     if (isOpen.value && messages.value.length === 0) {
-        // Add welcome message
         messages.value.push({
             text: "Hello! I'm your travel assistant. How can I help you today?",
             isUser: false
-        })
+        });
     }
 }
 
 watch(messages, () => {
     nextTick(() => {
         if (chatContainer.value) {
-            chatContainer.value.scrollTop = chatContainer.value.scrollHeight
+            chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
         }
-    })
-}, { deep: true })
+    });
+}, { deep: true });
 
 async function sendMessage() {
     if (!userInput.value.trim()) return;
 
     const userMessage = userInput.value;
-    messages.value.push({
-        text: userMessage,
-        isUser: true
-    });
+    messages.value.push({ text: userMessage, isUser: true });
     userInput.value = "";
     isLoading.value = true;
 
     try {
-        const prompt = `
-        Respond to the user's question in a helpful way while following these Markdown formatting rules:
-        - Use ## for section headings in blue.
-        - Use bullet points for lists.
-        - Use **bold** for important locations.
-        - Use *italics* for descriptions.
-        - Keep responses concise and well-structured.
-        
-        User's question: ${userMessage}`;
+        const result = await model.generateContent(userMessage);
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const botMessage = response.text(); // Ensure this correctly extracts the message
+        console.log("API Response:", result); // Debugging
 
-        messages.value.push({
-            text: botMessage,
-            isUser: false
-        });
+        // ✅ Correct way to extract text from the response
+        const botMessage = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text ||
+            "Sorry, I couldn't understand that.";
+
+        messages.value.push({ text: botMessage, isUser: false });
+
     } catch (error) {
         console.error("Error:", error);
-        messages.value.push({
-            text: "Sorry, I encountered an error. Please try again.",
-            isUser: false
-        });
+        messages.value.push({ text: "Sorry, I encountered an error. Please try again.", isUser: false });
     } finally {
         isLoading.value = false;
     }
 }
+
 
 </script>
