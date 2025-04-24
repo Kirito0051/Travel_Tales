@@ -18,10 +18,15 @@
 🎥 3D model/video slider on landing page
 
 Tech | Usage
+
 Nuxt.js | Frontend Framework
+
 Tailwind CSS | Styling
+
 Clerk | Authentication
+
 MongoDB | Database (via MongoDB Atlas)
+
 Node.js | Backend 
 
 # npm
@@ -40,6 +45,7 @@ yarn dev
 pnpm dev
 
 Connect with Me
+
 GitHub: @Kirito0051
 
 LinkedIn: Anas Shaikh
