@@ -13,7 +13,7 @@ graph TD
   C --> D[Select Option]
   D --> E[Login / Signup (Clerk)]
   E --> F[Booking Form]
-  F --> H[Booking Confirmation]
+  F --> G[Booking Confirmation]
 
 🧩 Features
 🔍 Flight, hotel, and car rental search
