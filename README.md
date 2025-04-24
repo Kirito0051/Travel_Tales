@@ -21,20 +21,20 @@ Node.js | Backend
 
 # npm
 npm install
-yarn
+#yarn
 yarn install
-pnpm
+#pnpm
 pnpm install
-bun
+#bun
 bun install
 
 npm run dev
-or
+#or
 yarn dev
-or
+#or
 pnpm dev
 
-Connect with Me
+#Connect with Me
 
 GitHub: @Kirito0051
 
