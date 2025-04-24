@@ -11,7 +11,7 @@ graph TD
   A[Landing Page] --> B[Search Flights / Hotels / Cars]
   B --> C[Results Page]
   C --> D[Select Option]
-  D --> E[Login / Signup (Clerk)]
+  D --> E["Login / Signup (Clerk)"]
   E --> F[Booking Form]
   F --> G[Booking Confirmation]
 
