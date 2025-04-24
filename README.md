@@ -1,75 +1,58 @@
-# Nuxt Minimal Starter
+# 🌍 Travel Tales
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+**Travel Tales** is a responsive travel website built using **Nuxt.js** that allows users to search for flights, hotels, and car rentals. It provides a seamless booking experience, integrates user authentication with Clerk, and offers a clean UI/UX optimized for all devices.
 
-## Setup
+---
 
-Make sure to install dependencies:
+## 📊 Project Flow (Visual Overview)
 
-```bash
+```mermaid
+graph TD
+  A[Landing Page] --> B[Search Flights / Hotels / Cars]
+  B --> C[Results Page]
+  C --> D[Select Option]
+  D --> E[Login / Signup (Clerk)]
+  E --> F[Booking Form]
+  G --> H[Booking Confirmation]
+
+🧩 Features
+🔍 Flight, hotel, and car rental search
+
+🧾 Booking system with confirmation
+
+🔐 User authentication using Clerk
+
+📱 Responsive design with clean UI
+
+🌐 Built with Nuxt.js & Tailwind CSS
+
+🎥 3D model/video slider on landing page
+
+Tech | Usage
+Nuxt.js | Frontend Framework
+Tailwind CSS | Styling
+Clerk | Authentication
+MongoDB | Database (via MongoDB Atlas)
+Node.js | Backend 
+
 # npm
 npm install
-
-# pnpm
-pnpm install
-
 # yarn
 yarn install
-
+# pnpm
+pnpm install
 # bun
 bun install
-```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
+# or
+yarn dev
+# or
 pnpm dev
 
-# yarn
-yarn dev
+Connect with Me
+GitHub: @Kirito0051
 
-# bun
-bun run dev
-```
+LinkedIn: Anas Shaikh
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Email: anas0066@gmail.com
