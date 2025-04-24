@@ -15,18 +15,13 @@ graph TD
   E --> F[Booking Form]
   F --> G[Booking Confirmation]
 
-🧩 Features
-🔍 Flight, hotel, and car rental search
-
-🧾 Booking system with confirmation
-
-🔐 User authentication using Clerk
-
-📱 Responsive design with clean UI
-
-🌐 Built with Nuxt.js & Tailwind CSS
-
-🎥 3D model/video slider on landing page
+ Features
+  Flight, hotel, and car rental search
+  Booking system with confirmation
+  User authentication using Clerk
+  Responsive design with clean UI
+  Built with Nuxt.js & Tailwind CSS
+  3D model/video slider on landing page
 
 Tech | Usage
 Nuxt.js | Frontend Framework
