@@ -5,12 +5,11 @@
 ---
 
 ## 📊 Project Flow (Visual Overview)
-<!--
-```mermaid
 graph TD
-  A[Start] --> B[Flight Booking]
-  B --> C[Hotel Booking]
-  C --> D[Car Rental]
-  D --> E[Payment]
-  E --> F[Confirmation]
+  A[Landing Page] --> B[Search Flights / Hotels / Cars]
+  B --> C[Results Page]
+  C --> D[Select Option]
+  D --> E["Login / Signup (Clerk)"]
+  E --> F[Booking Form]
+  F --> G[Booking Confirmation]
 
