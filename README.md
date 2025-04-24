@@ -5,6 +5,9 @@
 ---
 
 ## 📊 Project Flow (Visual Overview)
+
+```mermaid
+
 graph TD
   A[Landing Page] --> B[Search Flights / Hotels / Cars]
   B --> C[Results Page]
