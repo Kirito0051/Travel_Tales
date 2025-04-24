@@ -4,6 +4,48 @@
 
 ---
 
+🧩 Features
+🔍 Flight, hotel, and car rental search
+
+🧾 Booking system with confirmation
+
+🔐 User authentication using Clerk
+
+📱 Responsive design with clean UI
+
+🌐 Built with Nuxt.js & Tailwind CSS
+
+🎥 3D model/video slider on landing page
+
+Tech | Usage
+Nuxt.js | Frontend Framework
+Tailwind CSS | Styling
+Clerk | Authentication
+MongoDB | Database (via MongoDB Atlas)
+Node.js | Backend 
+
+# npm
+npm install
+# yarn
+yarn install
+# pnpm
+pnpm install
+# bun
+bun install
+
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+
+Connect with Me
+GitHub: @Kirito0051
+
+LinkedIn: Anas Shaikh
+
+Email: anas0066@gmail.com
+
 ## 📊 Project Flow (Visual Overview)
 
 ```mermaid
