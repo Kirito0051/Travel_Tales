@@ -15,7 +15,7 @@ graph TD
   E --> F[Booking Form]
   F --> G[Booking Confirmation]
 
- Features
+Features
   Flight, hotel, and car rental search
   Booking system with confirmation
   User authentication using Clerk
